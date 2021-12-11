@@ -111,7 +111,6 @@ int lastX, lastY;
 
 // Geometry data.
 Grid g_grid(50);
-Grid g_grid2(30);
 
 Cube g_cube;
 Prism g_prism(10);
@@ -372,10 +371,6 @@ void init(void)
 	glUniform1f(glGetUniformLocation(program, "aLight.base.diffuseStrength"), aLight.diffuseStrength);
 
 	// All VAO/VBO data now in Shape.h! But we still need to do this AFTER OpenGL is initialized.
-	g_grid.BufferShape();
-	g_cube.BufferShape();
-	g_prism.BufferShape();
-	g_cone.BufferShape();
 	// Enable depth test and blend.
 	glEnable(GL_DEPTH_TEST);
 	//glDisable(GL_DEPTH_TEST);
@@ -533,7 +528,6 @@ void drawShapes()
 
 		//Front Gate
 		createShape(g_cube, gateTexture, 1, 0, glm::vec3(4, 7, 1), glm::vec3(23, 2.0f, -7),0,0,0 );
-
 
 
 		/////////////////////Towers/////////////////////////
