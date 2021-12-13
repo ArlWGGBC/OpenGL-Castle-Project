@@ -85,22 +85,43 @@ bool drawOnce = true;
 unsigned char keys = 0; // Initialized to 0 or 0b00000000.
 
 // Texture variables.
-GLuint blankID, firstID, secondID, hedgeTexture, wallTexture, roomTexture, gateTexture, groundTexture, roofTexture, towerTexture, castlewallTexture1, castlewallTexture2, roadTexture, intTex;
+GLuint blankID, firstID, secondID, hedgeTexture, wallTexture
+, roomTexture, gateTexture, groundTexture, roofTexture, towerTexture, castlewallTexture1, castlewallTexture2, roadTexture, intTex;
 GLint width, height, bitDepth;
 
 // Light objects. Now OOP.
 AmbientLight aLight(
-	glm::vec3(1.0f, 1.0f, 1.0f),	// Diffuse colour.
-	1.0f);							// Diffuse strength.
+	glm::vec3(1.0f, 1.0f, 1.0f),    // Diffuse colour.
+	0.4f);// Diffuse strength.
+//Directional light
+DirectionalLight dLight(
+	glm::vec3(1.0f, 0.0f, 0.0f),    // Origin.
+	glm::vec3(1.0f, 0.0f, 0.0f),    // Diffuse colour.
+	0.0f);                            // Diffuse strength.
+//Point light
+PointLight pLights(
+	glm::vec3(25.7f, 6.5f, -25.75f),    // Position.
+	15.0f,                            // Range.
+	1.0f, 4.5f, 75.0f,                // Constant, Linear, Quadratic.
+	glm::vec3(1.0f / 255.0f * 255.0f, 1.0f / 255.0f * 255.0f, 1.0f / 255.0f * 0.0f),    // Diffuse colour.
+    20.0f);                    // Diffuse strength.
 
-//Point Light
-PointLight pLight(
-	glm::vec3(5.0f, 1.0f, -2.5f),	// Position.
-	//pointLightPosition,
-	50.0f,							// Range.
-	1.0f, 4.5f, 75.0f,				// Constant, Linear, Quadratic.   
-	glm::vec3(0.0f, 0.0f, 1.0f),	// Diffuse color.
-	1.0f);
+//Point light2
+PointLight pLights2(
+	glm::vec3(24.7f, 10.0f, -7.6f),    // Position.
+	35.0f,                            // Range.
+	1.0f, 4.5f, 75.0f,                // Constant, Linear, Quadratic.
+	glm::vec3(1.0f / 255.0f * 0.0f, 1.0f / 255.0f * 192.0f, 1.0f / 255.0f * 203.0f),    // Diffuse colour.
+	15.0f);                    // Diffuse strength.
+//Point light3
+PointLight pLights3(
+	glm::vec3(24.3f, 10.0f, -36.4f),    // Position.
+	20.0f,                            // Range.
+	1.0f, 4.5f, 75.0f,                // Constant, Linear, Quadratic.
+	glm::vec3(1.0f / 255.0f * 255.0f, 1.0f / 255.0f * 0.0f, 1.0f / 255.0f * 200.0f),    // Diffuse colour.
+	15.0f);                    // Diffuse strength.
+			
+// Camera and transform variables.
 
 
 // Camera and transform variables.
@@ -115,6 +136,8 @@ Grid g_grid(50);
 Cube g_cube;
 Prism g_prism(10);
 Cone g_cone(18);
+Prism g_c(30);
+Cone g_d(8);
 Plane g_plane;
 
 
@@ -139,6 +162,8 @@ void setupLights()
 {
 	
 }
+
+
 
 void loadTextures()
 {
@@ -330,9 +355,6 @@ void loadTextures()
 	glGenerateMipmap(GL_TEXTURE_2D);
 	stbi_image_free(image);
 	// End seventh image.
-
-
-
 }
 
 
@@ -370,6 +392,33 @@ void init(void)
 	glUniform3f(glGetUniformLocation(program, "aLight.base.diffuseColour"), aLight.diffuseColour.x, aLight.diffuseColour.y, aLight.diffuseColour.z);
 	glUniform1f(glGetUniformLocation(program, "aLight.base.diffuseStrength"), aLight.diffuseStrength);
 
+
+	// Setting point lights.
+	glUniform3f(glGetUniformLocation(program, "pLight.base.diffuseColour"), pLights.diffuseColour.x, pLights.diffuseColour.y, pLights.diffuseColour.z);
+	glUniform1f(glGetUniformLocation(program, "pLight.base.diffuseStrength"), pLights.diffuseStrength);
+	glUniform3f(glGetUniformLocation(program, "pLight.position"), pLights.position.x, pLights.position.y, pLights.position.z);
+	glUniform1f(glGetUniformLocation(program, "pLight.constant"), pLights.constant);
+	glUniform1f(glGetUniformLocation(program, "pLight.linear"), pLights.linear);
+	glUniform1f(glGetUniformLocation(program, "pLight.quadratic"), pLights.quadratic);
+
+	glUniform3f(glGetUniformLocation(program, "pLight2.base.diffuseColour"), pLights2.diffuseColour.x, pLights2.diffuseColour.y, pLights2.diffuseColour.z);
+	glUniform1f(glGetUniformLocation(program, "pLight2.base.diffuseStrength"), pLights2.diffuseStrength);
+	glUniform3f(glGetUniformLocation(program, "pLight2.position"), pLights2.position.x, pLights2.position.y, pLights2.position.z);
+	glUniform1f(glGetUniformLocation(program, "pLight2.constant"), pLights2.constant);
+	glUniform1f(glGetUniformLocation(program, "pLight2.linear"), pLights2.linear);
+	glUniform1f(glGetUniformLocation(program, "pLight2.quadratic"), pLights2.quadratic);
+
+
+	glUniform3f(glGetUniformLocation(program, "pLight3.base.diffuseColour"), pLights3.diffuseColour.x, pLights3.diffuseColour.y, pLights3.diffuseColour.z);
+	glUniform1f(glGetUniformLocation(program, "pLight3.base.diffuseStrength"), pLights3.diffuseStrength);
+	glUniform3f(glGetUniformLocation(program, "pLight3.position"), pLights3.position.x, pLights3.position.y, pLights3.position.z);
+	glUniform1f(glGetUniformLocation(program, "pLight3.constant"), pLights3.constant);
+	glUniform1f(glGetUniformLocation(program, "pLight3.linear"), pLights3.linear);
+	glUniform1f(glGetUniformLocation(program, "pLight3.quadratic"), pLights3.quadratic);
+
+
+
+
 	// All VAO/VBO data now in Shape.h! But we still need to do this AFTER OpenGL is initialized.
 	// Enable depth test and blend.
 	glEnable(GL_DEPTH_TEST);
@@ -386,6 +435,18 @@ void init(void)
 	//glEnable(GL_CULL_FACE);
 	//glFrontFace(GL_CCW);
 	//glCullFace(GL_BACK);
+
+	g_grid.BufferShape();
+
+	g_cube.BufferShape();
+
+	g_prism.BufferShape();
+
+	g_cone.BufferShape();
+	g_plane.BufferShape();
+	g_d.BufferShape();
+	g_c.BufferShape();
+
 
 	timer(0); // Setup my recursive 'fixed' timestep/framerate.
 }
@@ -470,8 +531,12 @@ void createMerlon(Shape shape, GLuint texture, float iteration, float rotationan
 			
 			}
 		}
-}
-
+}	//-36.4205 X : 26.3699
+bool isPickedUp = false;
+bool isOnPlace = false;
+glm::vec3 position1(23.5f, 5.0f, -36.9f); //top crystal
+glm::vec3 position2 = glm::vec3(position1.x + 2.0f, position1.y, position1.z); //down of crystal
+glm::vec3 position3(25.7f, 2.0f, -26.75f); //cyllinder pos
 void drawShapes()
 {
 
@@ -657,7 +722,92 @@ void drawShapes()
 		createShape(g_cube, hedgeTexture, 2, 0,glm::vec3(1, 3.5, 1), glm::vec3(42, 1.f, -29),-1,0,0 );
 		//39
 		createShape(g_cube, hedgeTexture, 2, 0,glm::vec3(1, 3.5, 5.5), glm::vec3(12, 1.f, -38),0,0,5.5 );
+		//Create the special item
+		if(!isPickedUp)
+		{
+			
+			glBindTexture(GL_TEXTURE_2D, blankID);									   //
+			transformObject(glm::vec3(2.0f, 2.0f, 2.0f), Z_AXIS, 0.0f, position1);		   //
+			g_d.RecolorShape(1.0f / 255.0f * 255.0f, 1.0f / 255.0f * 0.0f, 1.0f / 255.0f * 200.0f);																			   //
+			g_d.DrawShape(GL_TRIANGLES);												   //    drawing the special item 2 (2 cones)
+																						   //
+			glBindTexture(GL_TEXTURE_2D, blankID);									   //
+			transformObject(glm::vec3(2.0f, 2.0f, 2.0f), Z_AXIS, -180.0f, position2);	   //
+			g_d.DrawShape(GL_TRIANGLES);
 
+		  
+			if ((position1.x - position.x <= 2.0f && position1.x - position.x >= -2.0f &&			 //
+				position.y - position1.y <= 2.0f && position.y - position1.y >= -2.0f &&			 //
+				position.z - position1.z <= 1.0f && position.z - position1.z >= -2.0f) || 			 //   the condition for deleting the special item
+				(position2.x - position.x <= 2.0f && position2.x - position.x >= -2.0f &&			 //
+					position.y - position2.y <= 2.0f && position.y - position2.y >= -2.0f &&		 //
+					position.z - position2.z <= 1.0f && position.z - position2.z >= -2.0f) && !isOnPlace)			 //
+			{
+					cout << "You picked up the object" << endl;										 //   delete the item when we set the "isPickedUp" to true
+					isPickedUp = true;																 //
+			}
+		}
+		//create cyllinder at centre 
+		g_c.RecolorShape(1.0f / 255.0f * 133.0f, 1.0f / 255.0f * 100.0f, 1.0f / 255.0f * 255.0f);
+		createShape(g_c, blankID, 1, 0, glm::vec3(0.7f, 1.5f, 0.7f), position3, 0, 0, 5.5);
+}
+
+glm::vec3 doorPos(24.7f, 5.0f, -6.76f);
+bool fullWayUp = false;
+void checkTheDoor()
+{
+	if ((doorPos.x - position.x <= 2.0f && doorPos.x - position.x >= -2.0f &&			 //
+		position.y - doorPos.y <= 2.0f && position.y - doorPos.y >= -2.0f &&			 //
+		position.z - doorPos.z <= 1.0f && position.z - doorPos.z >= -2.0f))
+	{
+		if (!isOnPlace)
+			cout << "You can't pass yet !! \n";
+				else
+		{
+			cout << "You passing the door! \n";
+		}
+	}
+}
+void putTheCrystal()
+{
+	if ((position3.x - position.x <= 2.0f && position3.x - position.x >= -2.0f &&			 //
+		position.y - position3.y <= 2.0f && position.y - position3.y >= -2.0f &&			 //
+		position.z - position3.z <= 1.0f && position.z - position3.z >= -2.0f) && isPickedUp && !isOnPlace)
+	{
+		position1 = glm::vec3(position3.x-0.65f, position3.y + 3.5f, position3.z -0.675f);
+		position2 = glm::vec3(position1.x+2.0f, position3.y + 3.5f, position1.z);
+		if(!isOnPlace)
+		cout << "You put the crystal on it's place, now you can pass the door! \n";
+		isOnPlace = true;
+		
+	}
+	if (isOnPlace)
+	{
+		glBindTexture(GL_TEXTURE_2D, blankID);									   //
+		transformObject(glm::vec3(2.0f, 2.0f, 2.0f), Z_AXIS, 0.0f, position1);		   //
+		g_d.RecolorShape(1.0f / 255.0f * 255.0f, 1.0f / 255.0f * 0.0f, 1.0f / 255.0f * 200.0f);																			   //
+		g_d.DrawShape(GL_TRIANGLES);												   //    drawing the special item 2 (2 cones)
+																					   //
+		glBindTexture(GL_TEXTURE_2D, blankID);									   //
+		transformObject(glm::vec3(2.0f, 2.0f, 2.0f), Z_AXIS, -180.0f, position2);	   //
+		g_d.DrawShape(GL_TRIANGLES);
+		if (position1.y <= (position3.y + 8.0f) && !fullWayUp)
+		{
+			position1.y += 0.05f;
+			position2.y += 0.05f;
+			if (position1.y <= (position3.y + 7.9f) && position1.y >= (position3.y + 7.0f))
+			{
+				fullWayUp = true;
+			}
+		}
+		if(position1.y >= (position3.y + 3.6f)  && fullWayUp/*&& position1.y >= (position3.y + 4.0f) && fullWayUp*/)
+		{
+			position1.y -= 0.05f;
+			position2.y -= 0.05f;
+			if (position1.y <= (position3.y + 3.7f))
+				fullWayUp = false;
+		}
+	}
 }
 //---------------------------------------------------------------------
 //
@@ -667,15 +817,13 @@ void display(void)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	// glBindTexture(GL_TEXTURE_2D, blankID); // Use this texture for all shapes.
-
-	
+	//cout << position1.y << "  Y3 :" << position3.y + 4.5f << endl;
 	drawShapes();
 
+	checkTheDoor();
+	putTheCrystal();
 	
-
-
-
-
+	//cout << "Z : " << position.z << " X : " << position.x << endl;
 
 	glBindVertexArray(0); // Done writing.
 	glutSwapBuffers(); // Now for a potentially smoother render.

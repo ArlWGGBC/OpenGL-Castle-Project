@@ -40,42 +40,42 @@ public:
 		glGenVertexArrays(1, &vao);
 		glBindVertexArray(vao);
 
-			ibo = 0;
-			glGenBuffers(1, &ibo);
-			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
-			glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(shape_indices[0]) * shape_indices.size(), &shape_indices.front(), GL_STATIC_DRAW);
-			glBindBuffer(GL_ARRAY_BUFFER, 0);
+		ibo = 0;
+		glGenBuffers(1, &ibo);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(shape_indices[0]) * shape_indices.size(), &shape_indices.front(), GL_STATIC_DRAW);
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
 
-			points_vbo = 0;
-			glGenBuffers(1, &points_vbo);
-			glBindBuffer(GL_ARRAY_BUFFER, points_vbo);
-			glBufferData(GL_ARRAY_BUFFER, sizeof(shape_vertices[0]) * shape_vertices.size(), &shape_vertices.front(), GL_STATIC_DRAW);
-			glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(shape_vertices[0]) * 3, 0);
-			glEnableVertexAttribArray(0);
+		points_vbo = 0;
+		glGenBuffers(1, &points_vbo);
+		glBindBuffer(GL_ARRAY_BUFFER, points_vbo);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(shape_vertices[0]) * shape_vertices.size(), &shape_vertices.front(), GL_STATIC_DRAW);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(shape_vertices[0]) * 3, 0);
+		glEnableVertexAttribArray(0);
 
-			colors_vbo = 0;
-			glGenBuffers(1, &colors_vbo);
-			glBindBuffer(GL_ARRAY_BUFFER, colors_vbo);
-			glBufferData(GL_ARRAY_BUFFER, sizeof(shape_colors[0]) * shape_colors.size(), &shape_colors.front(), GL_STATIC_DRAW);
-			glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 0, 0);
-			glEnableVertexAttribArray(1);
+		colors_vbo = 0;
+		glGenBuffers(1, &colors_vbo);
+		glBindBuffer(GL_ARRAY_BUFFER, colors_vbo);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(shape_colors[0]) * shape_colors.size(), &shape_colors.front(), GL_STATIC_DRAW);
+		glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 0, 0);
+		glEnableVertexAttribArray(1);
 
-			uv_vbo = 0;
-			glGenBuffers(1, &uv_vbo);
-			glBindBuffer(GL_ARRAY_BUFFER, uv_vbo);
-			glBufferData(GL_ARRAY_BUFFER, sizeof(shape_uvs[0]) * shape_uvs.size(), &shape_uvs.front(), GL_STATIC_DRAW);
-			glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 0, 0);
-			glEnableVertexAttribArray(2);
+		uv_vbo = 0;
+		glGenBuffers(1, &uv_vbo);
+		glBindBuffer(GL_ARRAY_BUFFER, uv_vbo);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(shape_uvs[0]) * shape_uvs.size(), &shape_uvs.front(), GL_STATIC_DRAW);
+		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 0, 0);
+		glEnableVertexAttribArray(2);
 
-			// Uncomment for DirectionalLight example.
-			normals_vbo = 0;
-			glGenBuffers(1, &normals_vbo);
-			glBindBuffer(GL_ARRAY_BUFFER, normals_vbo);
-			glBufferData(GL_ARRAY_BUFFER, sizeof(shape_normals[0]) * shape_normals.size(), &shape_normals.front(), GL_STATIC_DRAW);
-			glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, 0, 0);
-			glEnableVertexAttribArray(3);
+		// Uncomment for DirectionalLight example.
+		normals_vbo = 0;
+		glGenBuffers(1, &normals_vbo);
+		glBindBuffer(GL_ARRAY_BUFFER, normals_vbo);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(shape_normals[0]) * shape_normals.size(), &shape_normals.front(), GL_STATIC_DRAW);
+		glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, 0, 0);
+		glEnableVertexAttribArray(3);
 
-			glBindBuffer(GL_ARRAY_BUFFER, 0);
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 		glBindVertexArray(0); // Can optionally unbind the vertex array to avoid modification.
 	}
@@ -89,7 +89,7 @@ public:
 	{
 		glBindVertexArray(vao);
 
-			glDrawElements(c, this->NumIndices(), GL_UNSIGNED_SHORT, 0);
+		glDrawElements(c, this->NumIndices(), GL_UNSIGNED_SHORT, 0);
 		glBindVertexArray(0);
 	}
 	void CalcAverageNormals(vector<GLshort>& indices, unsigned indiceCount, vector<GLfloat>& vertices, unsigned verticeCount)
@@ -123,7 +123,7 @@ public:
 		}
 	}
 
-protected: 
+protected:
 	void ColorShape(GLfloat r, GLfloat g, GLfloat b, GLfloat a = 1.0f)
 	{
 		shape_colors.clear();
@@ -149,8 +149,8 @@ struct Plane : public Shape // Vertical plane of 1x1 units across.
 		};
 		shape_vertices = {
 			0.0f, 0.0f, 0.0f,
-			1.0f, 0.0f, 0.0f,		
-			1.0f, 1.0f, 0.0f,		
+			1.0f, 0.0f, 0.0f,
+			1.0f, 1.0f, 0.0f,
 			0.0f, 1.0f, 0.0f
 		};
 		for (int i = 0; i < shape_vertices.size(); i += 3)
@@ -216,7 +216,7 @@ struct Grid : public Shape // Flat grid on ground. Starts at 0,0,0 and increases
 		}
 		ColorShape(1.0f, 0.1f, 1.0f);
 		CalcAverageNormals(shape_indices, shape_indices.size(), shape_vertices, shape_vertices.size());
-	}	
+	}
 };
 struct Cube : public Shape
 {
@@ -354,7 +354,7 @@ struct Prism : public Shape
 		{
 			// Triangle one.
 			shape_indices.push_back(i);
-			shape_indices.push_back(i+1);
+			shape_indices.push_back(i + 1);
 			shape_indices.push_back(sides + i + 2);
 			// Triangle two.
 			shape_indices.push_back(sides + i + 2);
@@ -379,10 +379,10 @@ struct Prism : public Shape
 		shape_indices.push_back(sides);
 		for (int i = 0; i < shape_vertices.size(); i += 3)
 		{
-			shape_uvs.push_back(shape_vertices[i] );
-			shape_uvs.push_back(shape_vertices[i + 1]);
+			shape_uvs.push_back(0); // No texture, so value doesn't matter.
+			shape_uvs.push_back(0);
 		}
-		ColorShape(1.0f, 1.0f, 1.0f);
+		ColorShape(0.5f, 1.0f, 1.0f);
 		CalcAverageNormals(shape_indices, shape_indices.size(), shape_vertices, shape_vertices.size());
 	}
 };
@@ -428,8 +428,8 @@ struct Cone : public Shape
 		shape_indices.push_back(1);
 		for (int i = 0; i < shape_vertices.size(); i += 3)
 		{
-			shape_uvs.push_back(shape_vertices[i] );
-			shape_uvs.push_back(shape_vertices[i + 1]);
+			shape_uvs.push_back(0); // No texture, so value doesn't matter.
+			shape_uvs.push_back(0);
 		}
 		ColorShape(1.0f, 1.0f, 1.0f);
 		CalcAverageNormals(shape_indices, shape_indices.size(), shape_vertices, shape_vertices.size());
