@@ -111,7 +111,7 @@ PointLight pLights2(
 	glm::vec3(24.7f, 10.0f, -7.6f),    // Position.
 	35.0f,                            // Range.
 	1.0f, 4.5f, 75.0f,                // Constant, Linear, Quadratic.
-	glm::vec3(1.0f / 255.0f * 0.0f, 1.0f / 255.0f * 192.0f, 1.0f / 255.0f * 203.0f),    // Diffuse colour.
+	glm::vec3(1.0f / 255.0f * 255.0f, 1.0f / 255.0f * 0.0f, 1.0f / 255.0f * 200.0f),   // Diffuse colour.
 	15.0f);                    // Diffuse strength.
 //Point light3
 PointLight pLights3(
@@ -274,7 +274,7 @@ void loadTextures()
 	// End fourth.
 
 	// Load fifth image.
-	image = stbi_load("thewater.jpg", &width, &height, &bitDepth, 0);
+	image = stbi_load("waterfinal.jpg", &width, &height, &bitDepth, 0);
 	if (!image) { cout << "Unable to load file!" << endl; }
 	glGenTextures(1, &groundTexture);
 	glBindTexture(GL_TEXTURE_2D, groundTexture);
@@ -572,27 +572,30 @@ void drawShapes()
 		//Side Walls
 		
 		//right wall
-		createShape(g_cube, wallTexture, 7, 0, glm::vec3(1, 9, 6), glm::vec3(46, 1.0f, -12), 0, 0, -6);
+		createShape(g_cube, wallTexture, 7, 0, glm::vec3(1, 9, 6), glm::vec3(45.5, 1.0f, -12), 0, 0, -6);
 		//left wall
 		createShape(g_cube, wallTexture, 7, 0, glm::vec3(1, 9, 6), glm::vec3(3, 1.0f, -12), 0, 0, -6);
 		//Back Wall
-		createShape(g_cube, wallTexture, 21, 0, glm::vec3(2, 9, 1), glm::vec3(4, 1.0f, -48), 2, 0, 0);
+		createShape(g_cube, wallTexture, 3, 0, glm::vec3(6.15, 9, 1), glm::vec3(4.5, 1.0f, -48), 6.15, 0, 0);
+		createShape(g_cube, wallTexture, 3, 0, glm::vec3(-6.15, 9, 1), glm::vec3(45.5, 1.0f, -48), -6.15, 0, 0);
+		/*createShape(g_cube, wallTexture, 21, 0, glm::vec3(2, 9, 1), glm::vec3(4, 1.0f, -48), 2, 0, 0);*/
 
 		//Battlements
 		//Front walls
 		createShape(g_cube, intTex, 3, 0, glm::vec3(6, 1, 2), glm::vec3(4, 10.0f, -7.5), 6, 0, 0);
 		createShape(g_cube, intTex, 3, 0, glm::vec3(-6, 1, 2), glm::vec3(45, 10.0f, -7.5), -6, 0, 0);
 		//Side Walls
-		
 		//right wall
-		createShape(g_cube, intTex, 7, 0, glm::vec3(2, 1, 6), glm::vec3(45.5, 10.0f, -12), 0, 0, -6);
+		createShape(g_cube, intTex, 7, 0, glm::vec3(2, 1, 6), glm::vec3(45, 10.0f, -12), 0, 0, -6);
 		//left wall
 		createShape(g_cube, intTex, 7, 0, glm::vec3(2, 1, 6), glm::vec3(2.5, 10.0f, -12), 0, 0, -6);
-		//Back Wall
-		createShape(g_cube, intTex, 21, 0, glm::vec3(2, 1, 2), glm::vec3(4, 10.0f, -48.5), 2, 0, 0);
+		//Back Walls
+		createShape(g_cube, intTex, 7, 0, glm::vec3(6, 1, 2), glm::vec3(4, 10.0f, -48.5), 6, 0, 0);
 
 		//Front Gate
-		createShape(g_cube, gateTexture, 1, 0, glm::vec3(4, 7, 1), glm::vec3(23, 2.0f, -7),0,0,0 );
+		createShape(g_cube, gateTexture, 1, 0, glm::vec3(4, 8, 1), glm::vec3(23, 2.0f, -7),0,0,0 );
+		//Back Gate
+		createShape(g_cube, gateTexture, 1, 0, glm::vec3(4.15, 8, 1), glm::vec3(22.9, 2.0f, -48),0,0,0 );
 
 
 		/////////////////////Towers/////////////////////////
@@ -625,7 +628,7 @@ void drawShapes()
 		
 		//Merlons/Crenels (TODO) : INCREASE MERLON/CRENEL HEIGHT TO PARAPET HEIGHT
 		//Right Wall
-		createMerlon(g_cube, wallTexture, 14, 0, glm::vec3(0.5, 1, 2), glm::vec3(46.5, 11.0f, -12),0,0,-4);
+		createMerlon(g_cube, wallTexture, 14, 0, glm::vec3(0.5, 1, 2), glm::vec3(46, 11.0f, -12),0,0,-4);
 		//Left Wall
 		createMerlon(g_cube, wallTexture, 14, 0, glm::vec3(0.5, 1, 2), glm::vec3(3, 11.0f, -12),0,0,-4);
 		//Back wall
@@ -641,6 +644,8 @@ void drawShapes()
 		//Steps
 		//Front ramp
 		createShape(g_cube, wallTexture, 1, 20, glm::vec3(4,0.25, 8), glm::vec3(22.5, 2.25f, -7),0,0,0 );
+		//Back ramp
+		createShape(g_cube, wallTexture, 1, -17.5, glm::vec3(4.15,0.25, 7), glm::vec3(23, 0.0f, -54),0,0,0 );
 		//Inside steps
 		createShape(g_cube, wallTexture, 1, 0, glm::vec3(4,0.5, -0.5), glm::vec3(22.5, 2.25f, -7),0,0,0 );
 		createShape(g_cube, wallTexture, 1, 0, glm::vec3(4,0.5, -0.5), glm::vec3(22.5, 1.806f, -7.5),0,0,0 );
@@ -737,11 +742,11 @@ void drawShapes()
 
 		  
 			if ((position1.x - position.x <= 2.0f && position1.x - position.x >= -2.0f &&			 //
-				position.y - position1.y <= 2.0f && position.y - position1.y >= -2.0f &&			 //
-				position.z - position1.z <= 1.0f && position.z - position1.z >= -2.0f) || 			 //   the condition for deleting the special item
+				position.y - position1.y <= 4.0f && position.y - position1.y >= -4.0f &&			 //
+				position.z - position1.z <= 2.0f && position.z - position1.z >= -2.0f) || 			 //   the condition for deleting the special item
 				(position2.x - position.x <= 2.0f && position2.x - position.x >= -2.0f &&			 //
-					position.y - position2.y <= 2.0f && position.y - position2.y >= -2.0f &&		 //
-					position.z - position2.z <= 1.0f && position.z - position2.z >= -2.0f) && !isOnPlace)			 //
+					position.y - position2.y <= 4.0f && position.y - position2.y >= -4.0f &&		 //
+					position.z - position2.z <= 2.0f && position.z - position2.z >= -2.0f) && !isOnPlace)			 //
 			{
 					cout << "You picked up the object" << endl;										 //   delete the item when we set the "isPickedUp" to true
 					isPickedUp = true;																 //
@@ -751,14 +756,14 @@ void drawShapes()
 		g_c.RecolorShape(1.0f / 255.0f * 133.0f, 1.0f / 255.0f * 100.0f, 1.0f / 255.0f * 255.0f);
 		createShape(g_c, blankID, 1, 0, glm::vec3(0.7f, 1.5f, 0.7f), position3, 0, 0, 5.5);
 }
-
-glm::vec3 doorPos(24.7f, 5.0f, -6.76f);
+	//Z : -48.1252 X : 24.8632
+glm::vec3 doorPos(25, 5.0f, -48);
 bool fullWayUp = false;
 void checkTheDoor()
 {
-	if ((doorPos.x - position.x <= 2.0f && doorPos.x - position.x >= -2.0f &&			 //
-		position.y - doorPos.y <= 2.0f && position.y - doorPos.y >= -2.0f &&			 //
-		position.z - doorPos.z <= 1.0f && position.z - doorPos.z >= -2.0f))
+	if ((doorPos.x - position.x <= 3.0f && doorPos.x - position.x >= -3.0f &&			 //
+		position.y - doorPos.y <= 3.0f && position.y - doorPos.y >= -3.0f &&			 //
+		position.z - doorPos.z <= 3.0f && position.z - doorPos.z >= -3.0f))
 	{
 		if (!isOnPlace)
 			cout << "You can't pass yet !! \n";
@@ -771,8 +776,8 @@ void checkTheDoor()
 void putTheCrystal()
 {
 	if ((position3.x - position.x <= 2.0f && position3.x - position.x >= -2.0f &&			 //
-		position.y - position3.y <= 2.0f && position.y - position3.y >= -2.0f &&			 //
-		position.z - position3.z <= 1.0f && position.z - position3.z >= -2.0f) && isPickedUp && !isOnPlace)
+		position.y - position3.y <= 3.0f && position.y - position3.y >= -3.0f &&			 //
+		position.z - position3.z <= 2.0f && position.z - position3.z >= -2.0f) && isPickedUp && !isOnPlace)
 	{
 		position1 = glm::vec3(position3.x-0.65f, position3.y + 3.5f, position3.z -0.675f);
 		position2 = glm::vec3(position1.x+2.0f, position3.y + 3.5f, position1.z);
@@ -823,7 +828,7 @@ void display(void)
 	checkTheDoor();
 	putTheCrystal();
 	
-	//cout << "Z : " << position.z << " X : " << position.x << endl;
+	/*cout << "Z : " << position.z << " X : " << position.x << endl;*/
 
 	glBindVertexArray(0); // Done writing.
 	glutSwapBuffers(); // Now for a potentially smoother render.
