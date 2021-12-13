@@ -18,7 +18,7 @@
     <ClCompile Include="prepShader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GAME2012_ZingelKarl_FinalAssignment.cpp">
+    <ClCompile Include="GAME2012_ZingelKarl_KarabanovVitaliyFinalAssignment.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

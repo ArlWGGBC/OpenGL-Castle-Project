@@ -1,7 +1,7 @@
 ﻿//***************************************************************************
-// GAME2012_ZingelKarl_FinalAssignment.cpp by Karl Zingel - 101339946
+// GAME2012_ZingelKarl_KarabanovVitaliy_FinalAssignment.cpp by Karl Zingel - 101339946
 //
-// GAME2012_ZingelKarl_FinalAssignment
+// GAME2012_ZingelKarl_KarabanovVitaliy_FinalAssignment
 //
 // Description:
 //	Click run to see the results.
@@ -1020,12 +1020,12 @@ int main(int argc, char** argv)
 	glutSetOption(GLUT_MULTISAMPLE, 8);
 
 	//if you comment out this line, a window is created with a default size
-	glutInitWindowSize(1024, 1024);
+	glutInitWindowSize(1280, 960);
 
 	//the top-left corner of the display
 	glutInitWindowPosition(0, 0);
 
-	glutCreateWindow("Week 13 - 01_Blending");
+	glutCreateWindow("Game2012_KarlZingel_KarabanovVitaliy_Final");
 
 	glewInit();	//Initializes the glew and prepares the drawing pipeline.
 

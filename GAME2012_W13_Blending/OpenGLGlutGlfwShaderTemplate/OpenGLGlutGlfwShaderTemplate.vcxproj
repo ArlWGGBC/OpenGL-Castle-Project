@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="GAME2012_ZingelKarl_FinalAssignment.cpp" />
+    <ClCompile Include="GAME2012_ZingelKarl_KarabanovVitaliyFinalAssignment.cpp" />
     <ClCompile Include="prepShader.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClCompile>
